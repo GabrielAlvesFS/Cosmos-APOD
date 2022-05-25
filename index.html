@@ -6,17 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmos</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/images/favicon-192.png" type="image/x-icon">
+    <link rel="shortcut icon" href="./assets/images/favicon-192.png" type="image/x-icon">
+
+    <!-- JS -->
+    <script src="./script.js" defer></script>
 
 </head>
 <body>
-    <form>
-        <input type="date" name="date" id="date" min="1995-06-20">
-        <button>IDK - ???</button>
+    <header class="header-container">
+        <h1>Astronomy Picture of the Day</h1>
+    </header>
+
+    <form id="form" class="form-container">
+        <input type="date" name="date" id="date" min="1995-06-20" required>
+        <button>Search</button>
     </form>
     
-    <img src="" width="500" height="500" style="display: none;">
-    <p style="display: none;">Carregando ...</p>
+    <main class="info-container">
+        <h2 id="info-title"></h2>
+        <img src="" id="current-image">
+        <iframe src="" id="current-video"></iframe>
+        <p id="explanation"></p>
+    </main>
 
 </body>
 </html>
