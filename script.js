@@ -1,43 +1,50 @@
-const form = document.forms['form']
-let currentImage = document.querySelector('#current-image')
-let currentVideo = document.querySelector('#current-video')
-let explanation = document.querySelector('#explanation')
-let title = document.querySelector('#info-title')
+let currentImage = $('#current-image')
+let currentVideo = $('#current-video')
+let explanation = $('#explanation')
+let title = $('#info-title')
+let errorText = $('#error')
 let date;
 
 const requestUser = (date) => {
-    let requestApi = new XMLHttpRequest
+    $.ajax({
+        url: `https://api.nasa.gov/planetary/apod?api_key=c1KBfL1ufPTGeP9VXEPI1i6NaBQMSxG34BO9qMhC&date=${date}`,
+        type: 'GET',
+        success: (requestApi)=>{
+            errorText.css('display', 'none')
 
-    requestApi.open('GET', `https://api.nasa.gov/planetary/apod?api_key=c1KBfL1ufPTGeP9VXEPI1i6NaBQMSxG34BO9qMhC&date=${date}`)
+            title.css('display', 'block')
+            title.html(`${requestApi.title}`)
 
-    requestApi.send()
+            if (requestApi.media_type === 'image'){
+                currentImage.css('display', 'block')
+                currentVideo.css('display', 'none')
+                currentImage.attr('src', `${requestApi.url}`)
+            } 
+            else {
+                currentVideo.css('display', 'block')
+                currentImage.css('display', 'none')
+                currentVideo.attr('src', `${requestApi.url}`)
+            }
+    
+            explanation.css('display', 'block')
+            explanation.html(`${requestApi.explanation}`)
+        },
 
-    requestApi.addEventListener("load", ()=>{
-        requestApi = JSON.parse(requestApi.responseText)
+        error:(requestApi, status)=>{
+            title.css('display', 'none')
+            currentImage.css('display', 'none')
+            currentVideo.css('display', 'none')
+            explanation.css('display', 'none')
 
-        title.style.display = 'block'
-        title.innerText = `${requestApi.title}`
-
-        if (requestApi.media_type === 'image'){
-            currentImage.style.display = 'block' 
-            currentVideo.style.display = 'none'
-            currentImage.src = `${requestApi.url}`
-        } 
-        else {
-            currentVideo.style.display = 'block'
-            currentImage.style.display = 'none'
-            currentVideo.src = `${requestApi.url}`
+            errorText.css('display', 'block')
         }
 
-        explanation.style.display = 'block'
-        explanation.innerText = `${requestApi.explanation}`
     })
-
 }
 
-form.addEventListener('submit', (event)=>{
+$('#form').submit((event)=>{
     event.preventDefault()
-    date = form[0].value
+    date = $('#date').val()
     requestUser(date)
     
 })
