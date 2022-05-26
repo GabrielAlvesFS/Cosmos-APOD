@@ -29,17 +29,24 @@
         <button>Search</button>
     </form>
     
-    <main class="info-container">
-        <h2 id="info-title"></h2>
-        <img src="" id="current-image">
-        <iframe src="" id="current-video"></iframe>
-        <p id="explanation"></p>
-    </main>
-
-    <section id="error">
+    <section id="error" class="error-container">
         <h2>Data Inválida</h2>
-        <h2>Selecione uma data entre 20/06/1995 e a data de hoje</h2>
+        <h2>Selecione uma data entre 20/06/1995 e a data de hoje!</h2>
     </section>
+
+    <main class="info-container">
+        
+        <section class="media-container">
+            <img src="" id="current-image">
+            <iframe src="" id="current-video"></iframe>
+        </section>
+
+        <section class="description-container">
+            <h2 id="info-title"></h2>
+            <p id="explanation"></p>
+        </section>
+
+    </main>
 
 </body>
 </html>
